@@ -9,9 +9,11 @@ import os
 load_dotenv()
 app = Flask(__name__)
 
+
 twilioIntegration = TwilioIntegration()
 vonageIntegration = VonageIntegration()
 bot = MathmaticalBot()
+
 
 @app.route('/')
 def index():
@@ -25,30 +27,29 @@ def index():
     </html>
     """)
 
-# A simple in-memory structure to store tasks
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook-twilio', methods=['POST'])
 def webhook():
-    try:
-        message = twilioIntegration.receive_message(request)
-        answer = bot.run(message)
-    except Exception as e:
-        answer = Message()
-        answer.body = f"{e}"
-    response = twilioIntegration.return_message(answer)
-    return str(response)
-
-# A simple in-memory structure to store tasks
+    return recive_message(twilioIntegration, request)
+ 
 @app.route('/webhook-vonage', methods=['POST'])
 def webhook_vonage():
+    return recive_message(vonageIntegration, request)\
+    
+
+def recive_message(chat_app_integration, request):
+    """Run the chat app integration."""
+    message = chat_app_integration.receive_message(request)
+    if message.body == "" or message.sender_phone == "":
+        return jsonify({"error": "Invalid message"}), 400
     try:
-        message = vonageIntegration.receive_message(request)
-        print(message.body)
         answer = bot.run(message)
+        response = chat_app_integration.return_message(answer)
     except Exception as e:
         answer = Message()
         answer.body = f"{e}"
-    response = vonageIntegration.return_message(answer)
-    return str(response)
+        answer.sender_phone = message.sender_phone
+        response = chat_app_integration.return_message(answer)
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

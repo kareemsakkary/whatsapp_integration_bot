@@ -1,7 +1,7 @@
 import abc
 from models import Message
 """
-Abstract base class for bots.
+Abstract base class for bots. 
 """
 class Bot(abc.ABC):
 

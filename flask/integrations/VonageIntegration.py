@@ -3,7 +3,7 @@ from integrations import ChatAppIntegration
 from models import Message
 import os
 
-
+ 
 class VonageIntegration(ChatAppIntegration):
 
     def __init__(self):
@@ -39,14 +39,12 @@ class VonageIntegration(ChatAppIntegration):
                 "channel": "whatsapp",
             }
 
-        print(self.api_key, self.api_secret, self.whatsapp_number)
         response = requests.post(
             self.base_url,
             auth=(self.api_key, self.api_secret),
             headers=headers,
             json=payload
         )
-        print("Vonage response:", response.status_code, response.text)
         return  response.text, response.status_code
 
     def receive_message(self, request) -> Message:
@@ -62,3 +60,4 @@ class VonageIntegration(ChatAppIntegration):
             message.body = data["text"]
 
         return message
+    

@@ -3,7 +3,7 @@ from integrations import ChatAppIntegration
 from models.message import Message
 
 
-
+ 
 class TwilioIntegration(ChatAppIntegration):
 
     def return_message(self, message: Message):
@@ -13,7 +13,6 @@ class TwilioIntegration(ChatAppIntegration):
         if message.is_audio:
             resp_message = resp.message("respond")
             resp_message.media(message.audio_url)
-            print(f"Audio message {resp_message}")
         else:
             resp.message(message.body)
         return str(resp)
@@ -28,5 +27,5 @@ class TwilioIntegration(ChatAppIntegration):
             return message
         else:
             message.body = request.values.get('Body', '')
-            sender_phone = request.values.get('From', '')
+            message.sender_phone = request.values.get('From', '')
             return message
