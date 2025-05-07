@@ -1,12 +1,14 @@
 import abc
+from models import Message
+
 class ChatAppIntegration:
     @abc.abstractmethod
-    def send_message(self, message: str) -> None:
+    def return_message(self, message: str):
         """Send a message to the chat application."""
         pass
 
     @abc.abstractmethod
-    def receive_message(self) -> str:
+    def receive_message(self) -> Message:
         """Receive a message from the chat application."""
         pass
 
