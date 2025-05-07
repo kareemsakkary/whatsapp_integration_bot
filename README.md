@@ -1,63 +1,101 @@
-# Flask
+# WhatsApp Chatbot for Equation Evaluation
 
-[![1-click-deploy](https://raw.githubusercontent.com/DefangLabs/defang-assets/main/Logos/Buttons/SVG/deploy-with-defang.svg)](https://portal.defang.dev/redirect?url=https%3A%2F%2Fgithub.com%2Fnew%3Ftemplate_name%3Dsample-flask-template%26template_owner%3DDefangSamples)
+## 📋 Overview
 
-This is a basic Flask to-do app that can be deployed with Defang.  Note that alongside your `.py` file, include a `requirements.txt` so that the Dockerfile can install the necessary packages with pip.
+This project is a WhatsApp-integrated chatbot that evaluates mathematical expressions sent by users. It also handles voice messages by replying with a pre-recorded prompt asking the user to resubmit their query as text.
 
-This project is intended to provide a basic understanding of how to get started with Flask on Defang. The items are stored in memory and are lost when the server is restarted. **It is not intended for production use**. If you need something production ready, you should use a managed database like Postgres or MySQL.
-
-## Prerequisites
-
-1. Download [Defang CLI](https://github.com/DefangLabs/defang)
-2. (Optional) If you are using [Defang BYOC](https://docs.defang.io/docs/concepts/defang-byoc) authenticate with your cloud provider account
-3. (Optional for local development) [Docker CLI](https://docs.docker.com/engine/install/)
-
-## Development
-
-To run the application locally, you can use the following command:
-
-```bash
-docker compose up --build
-```
-
-## Configuration
-
-For this sample, you will not need to provide [configuration](https://docs.defang.io/docs/concepts/configuration). 
-
-If you wish to provide configuration, see below for an example of setting a configuration for a value named `API_KEY`.
-
-```bash
-defang config set API_KEY
-```
-
-## Deployment
-
-> [!NOTE]
-> Download [Defang CLI](https://github.com/DefangLabs/defang)
-
-### Defang Playground
-
-Deploy your application to the Defang Playground by opening up your terminal and typing:
-```bash
-defang compose up
-```
-
-### BYOC (AWS)
-
-If you want to deploy to your own cloud account, you can use Defang BYOC:
-
-1. [Authenticate your AWS account](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), and check that you have properly set your environment variables like `AWS_PROFILE`, `AWS_REGION`, `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY`.
-2. Run in a terminal that has access to your AWS environment variables:
-    ```bash
-    defang --provider=aws compose up
-    ```
+The system is built with scalability and modularity in mind, allowing future extensions such as AI-based bots, customer service tools, and integration with various WhatsApp Business APIs.
 
 ---
 
-Title: Flask
+## 🎯 Objectives
 
-Short Description: A basic Flask to-do app.
+- Integrate a chatbot with WhatsApp using APIs like **Twilio** and **Vonage**
+- Parse and evaluate mathematical expressions sent as text
+- Handle unsupported message types (e.g., voice notes) with automated responses
+- Ensure secure and efficient error handling
+- Develop a scalable backend that can integrate with other platforms and bot types
 
-Tags: Flask, Python
+---
 
-Languages: python
+## 🛠️ Technologies Used
+
+- **Python**: Core language for backend logic and message processing
+- **Flask**: Lightweight web framework for RESTful API endpoints
+- **Twilio & Vonage APIs**: To send and receive WhatsApp messages
+- **Defang**: Platform used for reliable backend deployment
+- **Postman & Ngrok**: For local testing and webhook simulation
+
+---
+
+## 🧠 System Architecture
+
+> *(Diagram not included – you can insert a diagram here if you have one)*
+
+---
+
+## ▶️ How to Use
+
+The bot is available on two WhatsApp sandbox environments:
+
+### Method 1: Using Twilio Sandbox
+1. Save the number **+1 (415) 738-6102** and open a WhatsApp chat with it.
+2. Send the message: `Join crush taste` to activate the Twilio sandbox.
+
+### Method 2: Using Vonage Sandbox
+1. Save the number **+1 (415) 523-8886** and open a WhatsApp chat with it.
+2. Send the message: `Join labor-sight` to activate the Vonage sandbox.
+
+### Interaction
+Once the session is active:
+- ✅ Send a math expression like `12 / (3 + 1)` — you'll receive the evaluated result.
+- 🎤 Send a voice note — the bot will reply with a voice prompt asking for a text-based query.
+
+---
+
+## ✨ Features
+
+### ✅ Modular Design
+- Backend separates core logic from provider-specific logic
+- Easily extendable to other WhatsApp providers or bot types
+
+### ✅ Text Message Handling
+- Uses regex to extract valid math expressions from mixed text
+- Securely evaluates and responds with results via WhatsApp
+
+### ✅ Voice Message Handling
+- Detects incoming voice notes
+- Sends a pre-recorded message prompting for text input
+
+---
+
+## 🔁 Service Flow
+
+1. **Webhook Triggered**: `/webhook-twilio` or `/webhook-vonage` receives a message
+2. **Parsing**: Message is converted into a unified `Message` object
+3. **Processing**: 
+    - Math expression is extracted and evaluated
+    - Response message is built
+4. **Response**: Sent back to the user via the respective API (Twilio or Vonage)
+
+---
+
+## 🧩 Challenges & Solutions
+
+### 🚫 Twilio Daily Message Limit
+- Twilio sandbox allows only a limited number of trial messages per day
+
+### ✅ Workaround
+- Added **Vonage** as an alternative provider
+- Created new Twilio trial accounts to bypass message limits during testing
+
+---
+
+## 🔮 Future Improvements
+
+- ✅ Deploy with a **dedicated WhatsApp number** (not using sandbox join codes)
+- 🔌 Extend functionality to support:
+  - AI-based bots
+  - Internal business tools
+  - Customer support automation
+
