@@ -39,12 +39,12 @@ The system is built with scalability and modularity in mind, allowing future ext
 The bot is available on two WhatsApp sandbox environments:
 
 ### Method 1: Using Twilio Sandbox
-1. Save the number **+1 (415) 738-6102** and open a WhatsApp chat with it.
-2. Send the message: `Join crush taste` to activate the Twilio sandbox.
+1. Save the number **+1 (415) 523-8886** and open a WhatsApp chat with it.
+2. Send the message: `Join tent-bowl` to activate the Twilio sandbox.
 
 ### Method 2: Using Vonage Sandbox
-1. Save the number **+1 (415) 523-8886** and open a WhatsApp chat with it.
-2. Send the message: `Join labor-sight` to activate the Vonage sandbox.
+1. Save the number **+1 (415) 738-6102** and open a WhatsApp chat with it.
+2. Send the message: `Join crush taste` to activate the Vonage sandbox.
 
 ### Interaction
 Once the session is active:
