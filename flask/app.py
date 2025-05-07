@@ -13,6 +13,18 @@ twilioIntegration = TwilioIntegration()
 vonageIntegration = VonageIntegration()
 bot = MathmaticalBot()
 
+@app.route('/')
+def index():
+    return render_template_string("""
+    <html>
+        <head><title>Chatbot</title></head>
+        <body>
+            <h1>Chatbot</h1>
+            <p>Send a message to the bot.</p>
+        </body>
+    </html>
+    """)
+
 # A simple in-memory structure to store tasks
 @app.route('/webhook', methods=['POST'])
 def webhook():
